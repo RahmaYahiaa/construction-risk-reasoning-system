@@ -312,6 +312,27 @@
       (bind ?confirmed-causes (+ ?confirmed-causes 1)))
    (if (eq ?confirmed-causes 0) then
       (printout t "No causes were confirmed for this risk." crlf))
+   (printout t "Do you want to see how this risk was supported? (yes/no): ")
+   (bind ?explain (lowcase (readline)))
+   (if (or (eq ?explain "yes") (eq ?explain "y")) then
+      (printout t "Explanation: the selected risk is linked to these confirmed causes:" crlf)
+      (do-for-all-facts ((?l risk-link)) (eq ?l:risk-code ?rc)
+         (do-for-all-facts ((?c risk-cause))
+            (and (eq ?c:code ?l:cause-code) (eq ?c:selected TRUE))
+            (printout t "[" ?c:code "] " ?c:description " -> [" ?rc "] " crlf))))
    (do-for-all-facts ((?r risk)) (eq ?r:deduced TRUE)
       (printout t "Confirmed risk: [" ?r:code "] " ?r:description crlf))
    (printout t "===== Analysis Complete =====" crlf))
+
+(deffunction main ()
+   (bind ?again TRUE)
+   (while ?again
+      (reset)
+      (run)
+      (printout t crlf "Run another risk analysis? (yes/no): ")
+      (bind ?answer (lowcase (readline)))
+      (if (or (eq ?answer "yes") (eq ?answer "y")) then
+         (bind ?again TRUE)
+      else
+         (bind ?again FALSE)))
+   (printout t "Goodbye." crlf))
