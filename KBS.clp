@@ -133,10 +133,17 @@
    (risk-link (risk-code "3101002") (cause-code "C014"))
    (risk-link (risk-code "3101002") (cause-code "C001")))
 
+(deffunction clear-analysis-state ()
+   (do-for-all-facts ((?f risk-cause)) TRUE
+      (modify ?f (selected FALSE) (status unknown)))
+   (do-for-all-facts ((?f risk)) TRUE (modify ?f (deduced FALSE)))
+   (do-for-all-facts ((?f alarm)) TRUE (retract ?f)))
+
 ;;; Rules for Forward and Backward Chaining
 (defrule start
    (initial-fact)
    =>
+   (clear-analysis-state)
    (bind ?valid-mode FALSE)
    (while (not ?valid-mode)
       (printout t "Select reasoning mode (forward/backward): ")
