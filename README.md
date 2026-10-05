@@ -41,11 +41,13 @@ This repository is an educational CLIPS implementation inspired by the problem a
 - Python 3.10 or newer.
 - `clipspy` (CLIPS Python bindings), or a compatible CLIPS environment.
 
-Install the tested Python binding:
+Install the project dependencies:
 
 ```bash
-python -m pip install clipspy
+python -m pip install -r requirements.txt
 ```
+
+The only runtime dependency is `clipspy`, the Python binding used to exercise CLIPS on this project. A standalone CLIPS executable can also load `KBS.clp`.
 
 ## Run
 
@@ -71,6 +73,16 @@ To run from the CLIPS interactive prompt instead, load the file and call the fun
 3. Answer yes/no to the causes linked to that risk.
 4. Request the explanation to see which confirmed cause links support the risk.
 5. Choose whether to start another analysis.
+
+## Tests
+
+Run the automated knowledge-base checks from the project root:
+
+```bash
+python -m unittest discover -s tests -v
+```
+
+The tests verify that the CLIPS file loads, startup facts are present, the delivery-stage risk is available, and the state-reset function clears modified risk/cause flags and alarm facts.
 
 ## Data and Limitations
 
