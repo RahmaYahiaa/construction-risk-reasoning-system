@@ -288,12 +288,14 @@
    (retract ?f))
 
 (defrule confirm-risk-backward
+   (selected-risk ?rc)
    (selected-cause ?cc)
    (risk-link (risk-code ?rc) (cause-code ?cc))
    ?risk <- (risk (code ?rc) (description ?rd) (deduced FALSE))
    =>
    (printout t ">>> Risk confirmed: [" ?rc "] " ?rd crlf)
-   (modify ?risk (deduced TRUE)))
+   (modify ?risk (deduced TRUE))
+   (assert (alarm (code ?rc) (description ?rd) (deduced TRUE) (hypothesis TRUE))))
 
 (defrule print-summary-backward
    (declare (salience -20))
