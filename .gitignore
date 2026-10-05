@@ -1,0 +1,7 @@
+case study-2.pdf
+*.bak
+*.fas
+*.obj
+*.log
+.DS_Store
+Thumbs.db
