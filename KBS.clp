@@ -22,6 +22,9 @@
    (slot deduced (type SYMBOL) (default FALSE))
    (slot hypothesis (type SYMBOL) (default FALSE)))
 
+(deffacts startup
+   (initial-fact))
+
 ;;; Facts: Risk Causes
 (deffacts risk-causes
    ;; General/System Issues
