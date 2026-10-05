@@ -173,7 +173,7 @@
 (defrule find-matching-causes
    (keyword ?kw)
    (selected-stage ?stage)
-   (risk-cause (code ?code) (description ?desc&:(str-index ?kw (lowcase ?desc))) (stage ?cause-stage&:(or (eq ?stage "all") (eq ?cause-stage ?stage))) )
+   (risk-cause (code ?code) (description ?desc&:(str-index ?kw (lowcase ?desc))) (stage ?cause-stage&:(or (eq ?stage "all") (eq ?cause-stage ?stage))))
    (not (processed-cause ?code))
    =>
    (printout t "Cause matched: [" ?code "] " ?desc crlf)
