@@ -219,6 +219,9 @@
    (printout t "Deduced risks:" crlf)
    (do-for-all-facts ((?r risk)) (eq ?r:deduced TRUE)
       (printout t "[" ?r:code "] " ?r:description crlf))
+   (printout t "Alarm facts:" crlf)
+   (do-for-all-facts ((?a alarm)) TRUE
+      (printout t "[" ?a:code "] " ?a:description crlf))
    (printout t "===== Analysis Complete =====" crlf))
 
 ;;; Rules for Backward Chaining
