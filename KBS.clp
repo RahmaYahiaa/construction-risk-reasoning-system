@@ -201,12 +201,14 @@
    (retract ?f))
 
 (defrule show-risk-alarms
+   (mode forward)
    (selected-cause ?c)
    (risk-link (risk-code ?rc) (cause-code ?c))
    ?risk <- (risk (code ?rc) (description ?rd) (deduced FALSE))
    =>
    (printout t ">>> Possible RISK: [" ?rc "] " ?rd crlf)
-   (modify ?risk (deduced TRUE)))
+   (modify ?risk (deduced TRUE))
+   (assert (alarm (code ?rc) (description ?rd) (deduced TRUE) (hypothesis FALSE))))
 
 (defrule print-summary-forward
    (declare (salience -10))
